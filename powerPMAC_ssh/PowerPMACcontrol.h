@@ -137,9 +137,7 @@ inline struct timespec getAbsTimeout( long milliseconds)
  */
 class PowerPMACcontrol {
 public:
-    DLLDECL PowerPMACcontrol();
-    DLLDECL virtual ~PowerPMACcontrol();
-    
+
    DLLDECL int PowerPMACcontrol_connect(const char *host, const char *user, const char *pwd, const char *port="22", const bool nominus2 = false);
    DLLDECL int PowerPMACcontrol_disconnect();
    DLLDECL bool PowerPMACcontrol_isConnected(int timeout = TIMEOUT_NOT_SPECIFIED);
@@ -337,7 +335,13 @@ public:
     DLLDECL static const int  PPMACcontrolInvalidPasswordError = -245;			///< Invalid password
     DLLDECL static const int  PPMACcontrolInvalidPortError = -246;			///< Invalid port number
 
+    static PowerPMACcontrol* getInstance();     // pac
+
 private:
+    DLLDECL PowerPMACcontrol();  // pac
+    DLLDECL virtual ~PowerPMACcontrol();  // pac
+    static PowerPMACcontrol* ppmaccontrol = 0;  // pac
+
     SSHDriver *sshdriver;
     int connected;
 
@@ -354,10 +358,9 @@ private:
     DLLDECL int writeRead(const char *cmd, int timeout = TIMEOUT_NOT_SPECIFIED);
     DLLDECL int writeRead(const char *cmd, std::string& response, int timeout = TIMEOUT_NOT_SPECIFIED);
 
-
     int writeRead_WithoutSemaphore(const char *cmd, std::string& response, int timeout = TIMEOUT_NOT_SPECIFIED);
 
-    static const long SEMAPHORE_WAIT_MSEC = 200L;
+    static const long SEMAPHORE_WAIT_MSEC = 2000L; //200L; pac
     static const int MAX_ITEM_NUM = 32;
     
     static const int SEND_BUFFER_LENGTH = 128;

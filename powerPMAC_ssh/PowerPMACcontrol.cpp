@@ -57,6 +57,7 @@ PowerPMACcontrol::~PowerPMACcontrol() {
     
 }
 
+
 /**
  * Constructor for the PowerPMACcontrol.
  */
@@ -86,6 +87,17 @@ PowerPMACcontrol::PowerPMACcontrol(){
 		debugPrint_ppmaccomm("PowerPMACcontrol() : a semaphore created\n");
 
 }
+
+
+//PowerPMACcontrol* PowerPMACcontrol::ppmaccontrol = 0;  // pac
+
+PowerPMACcontrol* PowerPMACcontrol::getInstance(){    // pac
+    if (ppmaccontrol == 0){                    // pac
+        ppmaccontrol = new PowerPMACcontrol(); // pac
+    }                                      // pac
+    return ppmaccontrol;                       // pac
+};                                          // pac
+
 
 /**
  * @brief Attempt to create an SSH connection to Power PMAC using the username

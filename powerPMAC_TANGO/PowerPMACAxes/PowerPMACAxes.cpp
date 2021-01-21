@@ -93,7 +93,7 @@ namespace PowerPMACAxes_ns
 PowerPMACAxes::PowerPMACAxes(Tango::DeviceClass *cl, string &s)
  	: Tango::Device_4Impl(cl, s.c_str())
 {
-    ppmaccontrol=0;
+    // ppmaccontrol=0; pac
 	/*----- PROTECTED REGION ID(PowerPMACAxes::constructor_1) ENABLED START -----*/
     
 	init_device();
@@ -104,7 +104,7 @@ PowerPMACAxes::PowerPMACAxes(Tango::DeviceClass *cl, string &s)
 PowerPMACAxes::PowerPMACAxes(Tango::DeviceClass *cl, const char *s)
  	: Tango::Device_4Impl(cl, s)
 {
-    ppmaccontrol=0;
+    // ppmaccontrol=0; pac
 	/*----- PROTECTED REGION ID(PowerPMACAxes::constructor_2) ENABLED START -----*/
     
 	init_device();
@@ -115,7 +115,7 @@ PowerPMACAxes::PowerPMACAxes(Tango::DeviceClass *cl, const char *s)
 PowerPMACAxes::PowerPMACAxes(Tango::DeviceClass *cl, const char *s, const char *d)
  	: Tango::Device_4Impl(cl, s, d)
 {
-    ppmaccontrol=0;
+   // ppmaccontrol=0; pac
 	/*----- PROTECTED REGION ID(PowerPMACAxes::constructor_3) ENABLED START -----*/
     
 	init_device();
@@ -139,7 +139,7 @@ void PowerPMACAxes::delete_device()
     if (ppmaccontrol != 0)
     {
         ppmaccontrol->PowerPMACcontrol_disconnect();
-        delete ppmaccontrol;
+        //delete ppmaccontrol; pac  fix to avoid memory leak
     }
 	/*----- PROTECTED REGION END -----*/	//	PowerPMACAxes::delete_device
 	delete[] attr_Axis1CurrentPosition_read;
@@ -194,11 +194,13 @@ void PowerPMACAxes::init_device()
 
 	//	Initialize device
     //std::cout << "PowerPMACAxes::init device called" << endl;
-    if (ppmaccontrol == 0)
-    {
+    ppmaccontrol = PowerPMACcontrol_ns::PowerPMACcontrol::getInstance(); // pac
+    printf("\nIn Axes class: ppmaccontrol address = %p", ppmaccontrol);
+    // if (ppmaccontrol == 0) pac
+    //{ pac
         //std::cout << "PowerPMACBox::ppmaccontrol is zero" << endl;
-        ppmaccontrol = new PowerPMACcontrol_ns::PowerPMACcontrol();
-    }
+    //    ppmaccontrol = new PowerPMACcontrol_ns::PowerPMACcontrol(); pac
+    //} pac
     //else
         //std::cout << "PowerPMACBox::ppmaccontrol is not zero" << endl;
 

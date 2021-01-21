@@ -58,7 +58,7 @@ class PowerPMACBox : public Tango::Device_4Impl
 
 	//		Add your own data members
 private:
-    PowerPMACcontrol_ns::PowerPMACcontrol* ppmaccontrol;
+     PowerPMACcontrol_ns::PowerPMACcontrol* ppmaccontrol; // pac
 	/*----- PROTECTED REGION END -----*/	//	PowerPMACBox::Data Members
 
 

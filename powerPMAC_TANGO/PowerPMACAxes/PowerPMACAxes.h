@@ -55,7 +55,7 @@ class PowerPMACAxes : public Tango::Device_4Impl
 	/*----- PROTECTED REGION ID(PowerPMACAxes::Data Members) ENABLED START -----*/
 
 	//		Add your own data members
-    PowerPMACcontrol_ns::PowerPMACcontrol* ppmaccontrol;
+    PowerPMACcontrol_ns::PowerPMACcontrol* ppmaccontrol; // pac
 	/*----- PROTECTED REGION END -----*/	//	PowerPMACAxes::Data Members
 
 

@@ -94,7 +94,7 @@ namespace PowerPMACBox_ns
 PowerPMACBox::PowerPMACBox(Tango::DeviceClass *cl, string &s)
  	: Tango::Device_4Impl(cl, s.c_str())
 {
-    ppmaccontrol=0;
+    // ppmaccontrol=0; pac
 	/*----- PROTECTED REGION ID(PowerPMACBox::constructor_1) ENABLED START -----*/
 
 	init_device();
@@ -105,7 +105,7 @@ PowerPMACBox::PowerPMACBox(Tango::DeviceClass *cl, string &s)
 PowerPMACBox::PowerPMACBox(Tango::DeviceClass *cl, const char *s)
  	: Tango::Device_4Impl(cl, s)
 {
-    ppmaccontrol=0;
+    // ppmaccontrol=0; pac
 	/*----- PROTECTED REGION ID(PowerPMACBox::constructor_2) ENABLED START -----*/
 
 	init_device();
@@ -116,7 +116,7 @@ PowerPMACBox::PowerPMACBox(Tango::DeviceClass *cl, const char *s)
 PowerPMACBox::PowerPMACBox(Tango::DeviceClass *cl, const char *s, const char *d)
  	: Tango::Device_4Impl(cl, s, d)
 {
-    ppmaccontrol=0;
+    // ppmaccontrol=0; pac
 	/*----- PROTECTED REGION ID(PowerPMACBox::constructor_3) ENABLED START -----*/
 
 	init_device();
@@ -146,7 +146,7 @@ void PowerPMACBox::delete_device()
             //std::cout << "PowrePMACBox calling disconnect" << std::endl;
             int ret = ppmaccontrol->PowerPMACcontrol_disconnect();
         }
-        delete ppmaccontrol;
+        // delete ppmaccontrol; pac fix to avoid memory leak
     }
 	/*----- PROTECTED REGION END -----*/	//	PowerPMACBox::delete_device
 	delete[] attr_P1000_read;
@@ -188,11 +188,12 @@ void PowerPMACBox::init_device()
 	attr_Buffer_read = new Tango::DevString[256];
 	
 	/*----- PROTECTED REGION ID(PowerPMACBox::init_device) ENABLED START -----*/
-    
-    if (ppmaccontrol == 0)
-    {
-        ppmaccontrol = new PowerPMACcontrol_ns::PowerPMACcontrol();
-    }
+    ppmaccontrol = PowerPMACcontrol_ns::PowerPMACcontrol::getInstance(); // pac
+    printf("\nIn Box class: ppmaccontrol address = %p", ppmaccontrol);
+    // if (ppmaccontrol == 0) pac
+    // { pac
+    //    ppmaccontrol = new PowerPMACcontrol_ns::PowerPMACcontrol(); pac
+    // } pac
     
     //std::cout << "PowerPMACBox::init_device calling disconnect" << endl;
 	//	Initialize device
